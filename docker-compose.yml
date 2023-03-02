@@ -1,0 +1,29 @@
+"version": "3.9"
+networks:
+  alexmisko_network:
+volumes:
+  data:
+
+services:
+  nacos:
+    image: nacos/nacos-server:2.0.2
+    ports:
+      - "8848:8848"
+    environment:
+      - "JVM_XMS=256m"
+      - "JVM_XMX=256m"
+      - "MODE=standalone"
+    networks:
+      - alexmisko_network
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    networks:
+      alexmisko_network:
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=Szx123456"
+      - "MYSQL_DATABASE=drift"

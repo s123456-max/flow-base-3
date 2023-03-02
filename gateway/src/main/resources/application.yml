@@ -1,0 +1,24 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: GATEWAY
+  cloud:
+    nacos:
+      server-addr: 101.43.187.7:8848
+    gateway:
+      routes:
+        - id: video_router
+          uri: lb://VIDEO
+          predicates:
+            - Path=/video/**
+
+        - id: auth_router
+          uri: lb://AUTH
+          predicates:
+            - Path=/auth/**
+
+        - id: userInfo_router
+          uri: lb://USER-INFO
+          predicates:
+            - Path=/userInfo/**
