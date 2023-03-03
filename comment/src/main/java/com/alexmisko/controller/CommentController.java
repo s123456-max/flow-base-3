@@ -31,6 +31,7 @@ public class CommentController {
     public Result<List<Comment>> getComment(@PathVariable Long id){
         QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("video_id", id).eq("parent_id", 0);
+        // lists为第一级
         List<Comment> lists = commentService.getBaseMapper().selectList(queryWrapper);
         // 只能展示二级评论，增强型for循环不能动态添加数组元素
 //        for(Comment list : lists) {
@@ -46,6 +47,13 @@ public class CommentController {
             List<Comment> lists1 = commentService.getBaseMapper().selectList(queryWrapper1);
             lists.get(i).setChild(lists1);
             lists.get(i).setUserInfo(userInfoFeign.getUserInfo(lists.get(i).getUserId()).getData());
+            // 取父评论的用户id
+            if(lists.get(i).getParentId()!=0){
+                QueryWrapper<Comment> queryWrapper2 = new QueryWrapper<>();
+                queryWrapper2.eq("id", lists.get(i).getParentId());
+                Comment comment = commentService.getBaseMapper().selectOne(queryWrapper2);
+                lists.get(i).setParentInfo(userInfoFeign.getUserInfo(comment.getUserId()).getData());
+            }
             lists.addAll(lists1);
         }
         // 剪枝操作

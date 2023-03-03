@@ -25,14 +25,17 @@ public class Comment {
     private Long parentId;
 
     @TableField(fill = FieldFill.INSERT)
-    private Date create_time;
+    private Date createTime;
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date update_time;
+    private Date updateTime;
 
     @TableField(exist = false)
     private List<Comment> child;
 
     @TableField(exist = false)
     private UserInfo userInfo;
+
+    @TableField(exist = false)
+    private UserInfo parentInfo;
 }
