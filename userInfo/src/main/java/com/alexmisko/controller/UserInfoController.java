@@ -1,5 +1,6 @@
 package com.alexmisko.controller;
 
+import com.alexmisko.pojo.UserInfo;
 import com.alexmisko.service.UserInfoService;
 import com.alexmisko.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class UserInfoController {
      * 查询某个用户信息
      */
     @GetMapping("/userInfo/{id}")
-    public Result getUserInfo(@PathVariable Long id){
+    public Result<UserInfo> getUserInfo(@PathVariable Long id){
         return Result.success(userInfoService.getById(id));
     }
 }

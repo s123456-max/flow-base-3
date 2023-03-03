@@ -72,6 +72,9 @@ public class GlobalLoginOrRegisterFilter implements GlobalFilter, Ordered {
         if(request.getURI().getPath().contains("/userInfo")){
             return chain.filter(exchange);
         }
+        if(request.getURI().getPath().contains("/comment")){
+            return chain.filter(exchange);
+        }
         //不是登录或注册，校验token是否能解析
         HttpHeaders headers = request.getHeaders();
         String token = headers.getFirst(CommonConstant.JWT_USER_INFO_KEY);

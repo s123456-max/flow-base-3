@@ -22,3 +22,8 @@ spring:
           uri: lb://USER-INFO
           predicates:
             - Path=/userInfo/**
+
+        - id: comment_router
+          uri: lb://VIDEO-COMMENT
+          predicates:
+            - Path=/comment/**
